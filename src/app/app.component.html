@@ -7,12 +7,12 @@
             [nzTrigger]="null">
     <div class="sidebar-logo">
       <a href="https://ng.ant.design/" target="_blank">
-        <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
+        <img src="https://cdn-icons-png.flaticon.com/512/2910/2910249.png" alt="logo">
         <h1>MACFI</h1>
       </a>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-      <li nz-submenu nzOpen nzTitle="Activos Fijos" nzIcon="dashboard">
+      <li nz-submenu nzOpen nzTitle="Activos Fijos" nzIcon="reconciliation">
         <ul>
           <li nz-menu-item nzMatchRouter>
             <a routerLink="/activos">Activos Fijos</a>
@@ -22,17 +22,24 @@
           </li>
         </ul>
       </li>
-      <li nz-submenu nzOpen nzTitle="Empleados" nzIcon="dashboard">
+      <li nz-submenu nzOpen nzTitle="Empleados" nzIcon="user-add">
         <ul>
           <li nz-menu-item nzMatchRouter>
             <a routerLink="/empleados">Empleados</a>
           </li>
         </ul>
       </li>
-      <li nz-submenu nzOpen nzTitle="Reportes" nzIcon="form">
+      <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
         <ul>
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="/empleados">Reportes</a>
+            <a>Dashboard</a>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu nzOpen nzTitle="Reportes" nzIcon="file-text">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a>Reportes</a>
           </li>
         </ul>
       </li>
