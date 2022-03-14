@@ -1,0 +1,31 @@
+<h1>Activos Fijos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Descripcion</th>
+      <th>Clasificacion</th>
+      <th>Empleado Asignado</th>
+      <th>Valor Inicial</th>
+      <th>Vida Util</th>
+      <th>Depreciacaion Anual</th>
+      <th>Depreciacaion Mensual</th>
+      <th>Valor Actual</th>
+      <th>Ubicacion</th>
+      <th>Fecha de adquisicion</th>
+      <th>Estado</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data">
+      <td>{{data.name}}</td>
+      <td>{{data.age}}</td>
+      <td>{{data.address}}</td>
+      <td>
+        <a>Acciones 一 {{data.name}}</a>
+        <a>Delete</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
