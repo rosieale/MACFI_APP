@@ -1,0 +1,15 @@
+export { Activosfijos } from './models/activosfijos';
+export { NewActivosfijos } from './models/new-activosfijos';
+export { ActivosfijosWithRelations } from './models/activosfijos-with-relations';
+export { ActivosfijosPartial } from './models/activosfijos-partial';
+export { Depreciacion } from './models/depreciacion';
+export { NewDepreciacion } from './models/new-depreciacion';
+export { DepreciacionWithRelations } from './models/depreciacion-with-relations';
+export { DepreciacionPartial } from './models/depreciacion-partial';
+export { Empleados } from './models/empleados';
+export { NewEmpleados } from './models/new-empleados';
+export { EmpleadosWithRelations } from './models/empleados-with-relations';
+export { EmpleadosPartial } from './models/empleados-partial';
+export { NewActivosfijosInEmpleados } from './models/new-activosfijos-in-empleados';
+export { Count as LoopbackCount } from './models/loopback/count';
+export { PingResponse } from './models/ping-response';
