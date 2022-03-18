@@ -17,6 +17,7 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { ActivosfijosComponent } from './activosfijos.component';
 import { ActivosRoutingModule } from './activosfijos-routing.module';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 
 
@@ -41,7 +42,8 @@ import { ActivosRoutingModule } from './activosfijos-routing.module';
     NzInputModule,
     NzRadioModule,
     NzDatePickerModule,
-    NzSelectModule
+    NzSelectModule,
+    NzToolTipModule
   ]
 })
 export class ActivosFijosModule { }

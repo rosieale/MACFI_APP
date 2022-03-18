@@ -2,42 +2,47 @@
 
   <div nz-row nzJustify="center" nzAlign="middle">
     <div nz-col nzSpan="24" nzJustify="center">
-        <h1>Depreciacions</h1>
+        <h1>Depreciaciones</h1>
     </div>
   </div>
-  <div nz-row>
-    <div nz-col nzSpan="24"><button (click)="mostrar()" nz-button nzType="primary">Nuevo Empleado</button></div>
-  </div>
+ 
   <hr>
   <div nz-row>
     <div nz-col nzSpan="24">
-        <nz-table #basicTable [nzData]="empleado">
+        <nz-table #basicTable [nzData]="depreciacion">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Ubicacion</th>
-                    <th>Telefono</th>
-                    <th>Otro</th>
+                    <th>Nombre de activo</th>
+                    <th>Fecha</th>
+                    <th>Metodo</th>
+                    <th>Depreciacion Anual</th>
+                    <th>Depreciacion Mensual</th>
+                    <th>Depreciacion Total</th>
+                    <th>Valor Inicial</th>
+                    <th>Valor Actual</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let data of basicTable.data; let i=index">
-                    <td>{{data.id}}</td>
-                    <td>{{data.nombre}}</td>
-                    <td>{{data.apellido}}</td>
-                    <td>{{data.ubicacion}}</td>
-                    <td>{{data.telefono}}</td>
-                    <td>{{data.otro}}</td>
+                    <td>{{i+1}}</td>
+                    <td>{{data.activofijo}}</td>
+                    <td>{{data.fechaadquisicion}}</td>
+                    <td>{{data.metodo}}</td>
+                    <td>{{data.depreciacionanual}}</td>
+                    <td>{{data.depreciacionmensual}}</td>
+                    <td>{{data.depreciaciontotal}}</td>
+                    <td>{{data.valorinicial}}</td>
+                    <td>{{data.valoractual}}</td>
                     <td>
-                        <a (click)="mostrar(data)"><i nz-icon nzType="edit" nzTheme="twotone"></i></a>
-                        <nz-divider nzType="vertical"></nz-divider>
-                        <a nz-popconfirm nzPopconfirmTitle="¿Está seguro de borrar el registro?"
+                        
+                        <a nz-tooltip nzTooltipTitle="Eliminar" 
+                        nz-popconfirm nzPopconfirmTitle="¿Está seguro de borrar el registro?"
                             nzPopconfirmPlacement="bottom" (nzOnConfirm)="eliminar(data.id!)" (nzOnCancel)="cancel()"
                             nzShape="circle" nzCancelText="No" nzOkText="Si"><i nz-icon nzType="delete"
                                 nzTheme="outline"></i></a>
+                        
                     </td>
                 </tr>
             </tbody>
@@ -49,65 +54,4 @@
   
   
   
-  <nz-modal [(nzVisible)]="visible" nzTitle="Administracion Empleado">
-    <ng-container *nzModalContent>
-        <form nz-form nzLayout="vertical" (ngSubmit)="guardar()" [formGroup]="formEmpleado">
-            <div nz-row [nzGutter]="8">
-                <div nz-col nzSpan="24">
-                    <nz-form-item>
-                        <nz-form-label>Nombre</nz-form-label>
-                        <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                            <input formControlName="nombre" nz-input placeholder="Escribe el nombre del empleado" />
-                        </nz-form-control>
-                    </nz-form-item>
-                </div>
-            </div>
-            <div nz-row [nzGutter]="8">
-              <div nz-col nzSpan="24">
-                  <nz-form-item>
-                      <nz-form-label>Apellido</nz-form-label>
-                      <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                          <input formControlName="apellido" nz-input placeholder="Escribe el apellido del empleado" />
-                      </nz-form-control>
-                  </nz-form-item>
-              </div>
-          </div>
-          <div nz-row [nzGutter]="8">
-              <div nz-col nzSpan="24">
-                  <nz-form-item>
-                      <nz-form-label>Ubicacion</nz-form-label>
-                      <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                          <input formControlName="ubicacion" nz-input placeholder="Escribe la ubicacion del empleado" />
-                      </nz-form-control>
-                  </nz-form-item>
-              </div>
-          </div>
-          <div nz-row [nzGutter]="8">
-              <div nz-col nzSpan="24">
-                  <nz-form-item>
-                      <nz-form-label>Telefono</nz-form-label>
-                      <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                          <input formControlName="telefono" nz-input placeholder="Escribe el telefono del empleado" />
-                      </nz-form-control>
-                  </nz-form-item>
-              </div>
-          </div>
-          <div nz-row [nzGutter]="8">
-              <div nz-col nzSpan="24">
-                  <nz-form-item>
-                      <nz-form-label>Otro</nz-form-label>
-                      <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                          <input formControlName="otro" nz-input placeholder="Escribe otro dato del empleado" />
-                      </nz-form-control>
-                  </nz-form-item>
-              </div>
-          </div>
-           
-        </form>
-    </ng-container>
-    <div *nzModalFooter>
-        <button nz-button nzType="default" (click)="ocultar()">Cancelar</button>
-        <button nz-button nzType="primary" (click)="guardar()">Guardar</button>
-    </div>
-  </nz-modal>
   

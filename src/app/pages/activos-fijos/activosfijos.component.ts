@@ -1,11 +1,11 @@
 
 import { Component, OnInit } from '@angular/core';
-import { Activosfijos, Empleados } from 'src/app/api/models';
+import { Activosfijos, Depreciacion, Empleados } from 'src/app/api/models';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 //ng zo
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { ActivosfijosControllerService, EmpleadoControllerService } from 'src/app/api/services';
+import { ActivosfijosControllerService, DepreciacionControllerService, EmpleadoControllerService } from 'src/app/api/services';
 
 
 @Component({
@@ -21,6 +21,7 @@ export class ActivosfijosComponent implements OnInit {
   constructor(
     private activosService: ActivosfijosControllerService,
     private empleadoService: EmpleadoControllerService,
+    private depreciacionService: DepreciacionControllerService,
     private messageService: NzMessageService,
     private fb: FormBuilder
   ) { }
@@ -54,10 +55,47 @@ export class ActivosfijosComponent implements OnInit {
     this.messageService.info('Su registro sigue activo!')
   }
 
+  cancelDep(): void {
+    this.messageService.info('No se deprecio el activo')
+  }
+
   ocultar(): void {
     this.visible = false
     this.formActivos.reset()
   }
+  depreciacionCreate(data: Activosfijos): void {
+    let exito: Boolean = false;
+    let depre: Depreciacion = {
+      activofijo: data.descripcion,
+      activosfijosId: data.id,
+      comentario: 'Depreciacion',
+      depreciacionanual: data.depreciacionanual,
+      depreciacionmensual:data.depreciacionmensual,
+      depreciaciontotal:data.depreciacionmensual,
+      descripcion:data.descripcion,
+      fechaadquisicion:data.fechaadquisicion,
+      metodo:data.metodo,
+      valoractual: data.valoractual,
+      valorinicial:data.valorinicial,
+      vidautil: data.vidautil as number
+    }
+    // this.formActivos.setValue({ ...this.formActivos.value, 'estado': Boolean(this.formActivos.value.estado),
+    //                             'valorinicial': Number(this.formActivos.value.valorinicial),'empleadoasignado': String(''),
+    //                             'vidautil': Number(this.formActivos.value.vidautil),
+    //                             'depreciacionanual': Number(this.formActivos.value.depreciacionanual),
+    //                             'depreciacionmensual': Number(this.formActivos.value.depreciacionmensual),
+    //                             'valoractual': Number(this.formActivos.value.valoractual)
+    //                           })
+    this.depreciacionService.create
+    ({ body: depre }).subscribe((datoAgregado) => {
+      this.messageService.success('Registro creado con exito!')
+      this.formActivos.reset()
+    })
+
+                              
+  }
+
+
 
   mostrar(data?: Activosfijos): void {
     if (data?.id) {
@@ -68,14 +106,12 @@ export class ActivosfijosComponent implements OnInit {
   guardar(): void {
     let exito: Boolean = false;
     this.formActivos.setValue({ ...this.formActivos.value, 'estado': Boolean(this.formActivos.value.estado),
-    'valorinicial': Number(this.formActivos.value.valorinicial),'empleadoasignado': String(''),
-    'vidautil': Number(this.formActivos.value.vidautil),
-    'depreciacionanual': Number(this.formActivos.value.depreciacionanual),
-    'depreciacionmensual': Number(this.formActivos.value.depreciacionmensual),
-    'valoractual': Number(this.formActivos.value.valoractual)
-  
-  
-  })
+                                'valorinicial': Number(this.formActivos.value.valorinicial),'empleadoasignado': String(''),
+                                'vidautil': Number(this.formActivos.value.vidautil),
+                                'depreciacionanual': Number(this.formActivos.value.depreciacionanual),
+                                'depreciacionmensual': Number(this.formActivos.value.depreciacionmensual),
+                                'valoractual': Number(this.formActivos.value.valoractual)
+                              })
     if (this.formActivos.value.id) {
       this.activosService.updateById({ 'id': this.formActivos.value.id, 'body': this.formActivos.value }).subscribe(
         () => {

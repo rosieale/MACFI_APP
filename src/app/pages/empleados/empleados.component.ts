@@ -78,7 +78,6 @@ export class EmpleadosComponent implements OnInit {
         this.formEmpleado.reset()
       })
     }
-    if (!exito) this.messageService.error('Parametros incorrectos, no se guardo')
     this.visible = false
   }
 

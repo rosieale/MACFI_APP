@@ -18,39 +18,37 @@
                     <th>Fecha</th>
                     <th>Empleado Asignado</th>
                     <th>Estado</th>
-                    <th>Vida Util</th>
-                    <th>Depreciacion Anual</th>
-                    <th>Depreciacion Mensual</th>
-                    <th>Valor Inicial</th>
-                    <th>Valor Actual</th>
                     <th>Metodo</th>
-                    <th>Clasificacion</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let data of basicTable.data; let i=index">
-                    <td>{{data.id}}</td>
+                    <td>{{i+1}}</td>
                     <td>{{data.descripcion}}</td>
                     <td>{{data.ubicacion}}</td>
                     <td>{{data.fechaadquisicion}}</td>
                     <td>{{data.empleadosId}}</td>
-                    <td>{{data.estado}}</td>
-                    <td>{{data.vidautil}}</td>
-                    <td>{{data.depreciacionanual}}</td>
-                    <td>{{data.depreciacionmensual}}</td>
-                    <td>{{data.valorinicial}}</td>
-                    <td>{{data.valoractual}}</td>
+                    <td>
+                        <div *ngIf="data.estado"><i nz-icon nzType="check-square" nzTheme="outline"></i></div>
+                        <div *ngIf="!data.estado"><i nz-icon nzType="close-square" nzTheme="outline"></i></div>
+                    </td>
                     <td>{{data.metodo}}</td>
-                    <td>{{data.clasificacion}}</td>
 
                     <td>
-                        <a (click)="mostrar(data)"><i nz-icon nzType="edit" nzTheme="twotone"></i></a>
+                        <a nz-tooltip nzTooltipTitle="Mostrar/Editar" (click)="mostrar(data)"><i nz-icon nzType="edit" nzTheme="twotone"></i></a>
                         <nz-divider nzType="vertical"></nz-divider>
-                        <a nz-popconfirm nzPopconfirmTitle="¿Está seguro de borrar el registro?"
+                        <a nz-tooltip nzTooltipTitle="Eliminar" 
+                        nz-popconfirm nzPopconfirmTitle="¿Está seguro de borrar el registro?"
                             nzPopconfirmPlacement="bottom" (nzOnConfirm)="eliminar(data.id!)" (nzOnCancel)="cancel()"
                             nzShape="circle" nzCancelText="No" nzOkText="Si"><i nz-icon nzType="delete"
                                 nzTheme="outline"></i></a>
+                        <nz-divider nzType="vertical"></nz-divider>
+                        <a nz-tooltip nzTooltipTitle="Depreciar" 
+                        nz-popconfirm nzPopconfirmTitle="¿Está seguro de depreciar el activo?"
+                            nzPopconfirmPlacement="bottom" (nzOnConfirm)="depreciacionCreate(data!)" (nzOnCancel)="cancelDep()"
+                            nzShape="circle" nzCancelText="No" nzOkText="Si"><i nz-icon nzType="fall" nzTheme="outline"></i></a>
+                        
                     </td>
                 </tr>
             </tbody>
