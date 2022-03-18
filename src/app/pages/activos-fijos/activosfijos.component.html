@@ -1,31 +1,213 @@
-<h1>Activos Fijos</h1>
+  <div nz-row nzJustify="center" nzAlign="middle">
+    <div nz-col nzSpan="24" nzJustify="center">
+        <h1>Activos fijos</h1>
+    </div>
+  </div>
+  <div nz-row>
+    <div nz-col nzSpan="24"><button (click)="mostrar()" nz-button nzType="primary">Nuevo Activo</button></div>
+  </div>
+  <hr>
+  <div nz-row>
+    <div nz-col nzSpan="24">
+        <nz-table #basicTable [nzData]="activos">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre de activo</th>
+                    <th>Ubicacion</th>
+                    <th>Fecha</th>
+                    <th>Empleado Asignado</th>
+                    <th>Estado</th>
+                    <th>Vida Util</th>
+                    <th>Depreciacion Anual</th>
+                    <th>Depreciacion Mensual</th>
+                    <th>Valor Inicial</th>
+                    <th>Valor Actual</th>
+                    <th>Metodo</th>
+                    <th>Clasificacion</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of basicTable.data; let i=index">
+                    <td>{{data.id}}</td>
+                    <td>{{data.descripcion}}</td>
+                    <td>{{data.ubicacion}}</td>
+                    <td>{{data.fechaadquisicion}}</td>
+                    <td>{{data.empleadosId}}</td>
+                    <td>{{data.estado}}</td>
+                    <td>{{data.vidautil}}</td>
+                    <td>{{data.depreciacionanual}}</td>
+                    <td>{{data.depreciacionmensual}}</td>
+                    <td>{{data.valorinicial}}</td>
+                    <td>{{data.valoractual}}</td>
+                    <td>{{data.metodo}}</td>
+                    <td>{{data.clasificacion}}</td>
 
-<table>
-  <thead>
-    <tr>
-      <th>Descripcion</th>
-      <th>Clasificacion</th>
-      <th>Empleado Asignado</th>
-      <th>Valor Inicial</th>
-      <th>Vida Util</th>
-      <th>Depreciacaion Anual</th>
-      <th>Depreciacaion Mensual</th>
-      <th>Valor Actual</th>
-      <th>Ubicacion</th>
-      <th>Fecha de adquisicion</th>
-      <th>Estado</th>
-
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let data">
-      <td>{{data.name}}</td>
-      <td>{{data.age}}</td>
-      <td>{{data.address}}</td>
-      <td>
-        <a>Acciones 一 {{data.name}}</a>
-        <a>Delete</a>
-      </td>
-    </tr>
-  </tbody>
-</table>
+                    <td>
+                        <a (click)="mostrar(data)"><i nz-icon nzType="edit" nzTheme="twotone"></i></a>
+                        <nz-divider nzType="vertical"></nz-divider>
+                        <a nz-popconfirm nzPopconfirmTitle="¿Está seguro de borrar el registro?"
+                            nzPopconfirmPlacement="bottom" (nzOnConfirm)="eliminar(data.id!)" (nzOnCancel)="cancel()"
+                            nzShape="circle" nzCancelText="No" nzOkText="Si"><i nz-icon nzType="delete"
+                                nzTheme="outline"></i></a>
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+  </div>
+  
+  
+  
+  
+  
+  <nz-modal [(nzVisible)]="visible" nzTitle="Administracion Activo">
+    <ng-container *nzModalContent>
+        <form nz-form nzLayout="vertical" (ngSubmit)="guardar()" [formGroup]="formActivos">
+            <div nz-row [nzGutter]="8">
+                <div nz-col nzSpan="24">
+                    <nz-form-item>
+                        <nz-form-label>Nombre de activo</nz-form-label>
+                        <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                            <input formControlName="descripcion" nz-input placeholder="Escribe el nombre del activo" />
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+            <div nz-row [nzGutter]="8">
+              <div nz-col nzSpan="24">
+                  <nz-form-item>
+                      <nz-form-label>Ubicacion</nz-form-label>
+                      <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                          <input formControlName="ubicacion" nz-input placeholder="Escribe el apellido del empleado" />
+                      </nz-form-control>
+                  </nz-form-item>
+              </div>
+            </div>
+          <div nz-row [nzGutter]="8">
+            <div nz-col nzSpan="24">
+                <nz-form-item>
+                    <nz-form-label>Fecha de Adquision</nz-form-label>
+                    <nz-form-control  nzErrorTip="Por favor escriba el dato correcto!">
+                        <nz-date-picker formControlName="fechaadquisicion" nzPlaceHolder="Seleccione Fecha"></nz-date-picker>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div nz-row [nzGutter]="8">
+            <div nz-col nzSpan="24">
+                <nz-form-item>
+                    <nz-form-label>Empleado Asignado</nz-form-label>
+                    <nz-form-control  nzErrorTip="Por favor escriba el dato correcto!">
+                        <nz-select formControlName="empleadosId">
+                            <nz-option *ngFor="let item of empleado" [nzValue]="item.id" [nzLabel]="item.nombre+' '+item.apellido">
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div nz-row [nzGutter]="8" hidden>
+            <div nz-col nzSpan="24">
+                <nz-form-item>
+                    <nz-form-label>Empleado Asignado</nz-form-label>
+                    <nz-form-control  nzErrorTip="Por favor escriba el dato correcto!">
+                        <nz-select formControlName="empleadoasignado">
+                            
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div nz-row [nzGutter]="8">
+            <div nz-col nzSpan="24">
+                <nz-form-item>
+                    <nz-form-label>Estado</nz-form-label>
+                    <nz-form-control  nzErrorTip="Por favor seleccione el dato correcto!">
+                        <nz-radio-group formControlName="estado">
+                            <label nz-radio [nzValue]="true">Activo</label>
+                            <label nz-radio [nzValue]="false">Inactivo</label>
+                        </nz-radio-group>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div nz-row [nzGutter]="8">
+            <div nz-col nzSpan="24">
+                <nz-form-item>
+                    <nz-form-label>Vida Util</nz-form-label>
+                    <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                        <input formControlName="vidautil" nz-input placeholder="Escriba vida util" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div nz-row [nzGutter]="8">
+            <div nz-col nzSpan="24">
+                <nz-form-item>
+                    <nz-form-label>Depreciacion Anual</nz-form-label>
+                    <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                        <input formControlName="depreciacionanual" nz-input placeholder="Escriba la depreciacion anual" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div nz-row [nzGutter]="8">
+            <div nz-col nzSpan="24">
+                <nz-form-item>
+                    <nz-form-label>Depreciacion Mensual</nz-form-label>
+                    <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                        <input formControlName="depreciacionmensual" nz-input placeholder="Escriba la depreciacion mensual" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div nz-row [nzGutter]="8">
+            <div nz-col nzSpan="24">
+                <nz-form-item>
+                    <nz-form-label>Valor Inicial</nz-form-label>
+                    <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                        <input formControlName="valorinicial" nz-input placeholder="Escriba el valor inicial" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div nz-row [nzGutter]="8">
+            <div nz-col nzSpan="24">
+                <nz-form-item>
+                    <nz-form-label>Valor Actual</nz-form-label>
+                    <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                        <input formControlName="valoractual" nz-input placeholder="Escriba el valor actual" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div> 
+        <div nz-row [nzGutter]="8">
+            <div nz-col nzSpan="24">
+                <nz-form-item>
+                    <nz-form-label>Metodo</nz-form-label>
+                    <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                        <input formControlName="metodo" nz-input placeholder="Escriba el metodo" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div nz-row [nzGutter]="8">
+            <div nz-col nzSpan="24">
+                <nz-form-item>
+                    <nz-form-label>Clasificacion </nz-form-label>
+                    <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                        <input formControlName="clasificacion" nz-input placeholder="Escriba la clasificacion" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>         
+        </form>
+    </ng-container>
+    <div *nzModalFooter>
+        <button nz-button nzType="default" (click)="ocultar()">Cancelar</button>
+        <button nz-button nzType="primary" (click)="guardar()">Guardar</button>
+    </div>
+  </nz-modal>
+  
