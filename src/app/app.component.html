@@ -63,3 +63,14 @@
     </nz-content>
   </nz-layout>
 </nz-layout>
+<tr-viewer
+[containerStyle]="viewerContainerStyle"
+[serviceUrl]="'http://myrestserviceurl/api/reports'"
+[reportSource]="{
+    report: 'Product Catalog.trdp',
+    parameters: {}
+}"
+[viewMode]="'INTERACTIVE'"
+[scaleMode]="'SPECIFIC'"
+[scale]="1.0">
+</tr-viewer>
